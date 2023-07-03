@@ -1,10 +1,29 @@
-describe("template spec", () => {
-  it("passes", () => {
+describe("template spec", { testIsolation: true }, () => {
+  it("clear", () => {});
+});
+
+describe("template spec", { testIsolation: false }, () => {
+  it("Go home", () => {
     cy.visit("/");
-    cy.log("log ici");
-    // cy.get(
-    //   ":nth-child(4) > .row > .col-xs-12 > .home-list > :nth-child(1) > :nth-child(1)"
-    // ).click();
-    console.log("coucou");
   });
+  it("choose lang", () => {
+    cy.visit("/");
+    cy.get(Cypress.env("lang"))
+      .click()
+      .then(() => {
+        Cypress.env("pubs").forEach((pub) => {
+          cy.$$(pub).hide();
+        });
+      });
+  });
+  it("Take Caare", () => {
+    cy.get(Cypress.env("care")).click();
+  });
+  it("Bake cookie", { scrollBehavior: false }, () => {
+    cy.get(Cypress.env("bigCookie")).click();
+    cy.get(Cypress.env("nbcookies")).contains(/1 cookie/);
+  });
+  // it("Number of cookies", () => {
+  //   cy.get(Cypress.env("nbCookies")).contains(/1 cookie/);
+  // });
 });
