@@ -33,6 +33,7 @@ describe("template spec", { testIsolation: false }, () => {
 
   it("Reload with out clear cache!", () => {
     cy.reload();
+    cy.get(Cypress.env("care")).click();
     cy.get(Cypress.env("nbcookies")).contains(/1 cookie/);
   });
 
